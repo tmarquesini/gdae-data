@@ -36,7 +36,8 @@ class Environment
     {
         $this->http = new Client([
             'base_uri' => 'https://gdaenet.edunet.sp.gov.br/Gdaenet/',
-            'cookies' => new CookieJar()
+            'cookies' => new CookieJar(),
+            'verify' => false
         ]);
 
         $this->user = $user;
