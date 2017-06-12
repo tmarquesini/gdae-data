@@ -10,7 +10,7 @@ use GdaeData\Environment;
  * Class SchoolsRepository
  * @package GdaeData\Repository
  */
-class SchoolsRepository
+class SchoolsRepository extends BaseRepository
 {
     /**
      * @var Environment
@@ -23,6 +23,7 @@ class SchoolsRepository
      */
     public function __construct(Environment $env)
     {
+        parent::__construct($env);
         $this->env = $env;
     }
 
@@ -76,41 +77,4 @@ class SchoolsRepository
             'action' => 'screen'
         ]);
     }
-
-    /**
-     * @param string $html
-     * @return int
-     */
-    private function getCurrentPage(string $html): int
-    {
-        return (int) $this->getPagesString($html)[0][1];
-    }
-
-    /**
-     * @param string $html
-     * @return int
-     */
-    private function getTotalPages(string $html): int
-    {
-        return (int) $this->getPagesString($html)[0][2];
-    }
-
-    private function getPagesString(string $html): array
-    {
-        $expression = '/<span class="screen_color_PNN"> PAG\.<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PNN">D<\/span><span class="screen_color_PNN">E<\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span>/';
-        preg_match_all($expression, $html, $data, PREG_SET_ORDER);
-        return $data;
-    }
-
-    /**
-     * @param int $pageNumber
-     */
-    private function goToPageNumber(int $pageNumber)
-    {
-        $this->env->post('controller.jsp', [
-            'IF_1726' => $pageNumber,
-            'action' => 'screen'
-        ]);
-    }
-
 }

@@ -2,8 +2,6 @@
 
 namespace GdaeData\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Class School
  * @package GdaeData\Entity
@@ -20,6 +18,11 @@ class School
      */
     private $name;
 
+    /**
+     * School constructor.
+     * @param string $code
+     * @param string $name
+     */
     public function __construct(string $code, string $name)
     {
         $this->code = $code;

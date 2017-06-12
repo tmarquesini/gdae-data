@@ -9,24 +9,24 @@ namespace GdaeData\Entity;
 class Grade
 {
     /**
-     * @var
+     * @var string
      */
     private $code;
 
     /**
-     * @var
+     * @var string
      */
     private $series;
 
     /**
-     * @var
+     * @var string
      */
     private $class;
 
     /**
      * Grade constructor.
      * @param string $code
-     * @param string $grade
+     * @param string $series
      * @param string $class
      */
     public function __construct(string $code, string $series, string $class)
