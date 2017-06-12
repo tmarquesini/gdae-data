@@ -20,11 +20,6 @@ use GdaeData\Environment;
 class StudentsRepository extends BaseRepository
 {
     /**
-     * @var Environment
-     */
-    private $env;
-
-    /**
      * StudentsRepository constructor.
      * @param Environment $env
      */

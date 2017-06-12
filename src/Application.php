@@ -4,6 +4,7 @@ namespace GdaeData;
 
 use GdaeData\Repository\GradesRepository;
 use GdaeData\Repository\SchoolsRepository;
+use GdaeData\Repository\StudentsRepository;
 
 /**
  * Class Application
@@ -32,7 +33,15 @@ class Application
      */
     public $schools;
 
+    /**
+     * @var GradesRepository
+     */
     public $grades;
+
+    /**
+     * @var StudentsRepository
+     */
+    public $students;
 
 
     /**
@@ -45,6 +54,7 @@ class Application
         $this->environment = new Environment($user, $password);
         $this->schools = new SchoolsRepository($this->environment);
         $this->grades = new GradesRepository($this->environment);
+        $this->students = new StudentsRepository($this->environment);
     }
 
     /**
