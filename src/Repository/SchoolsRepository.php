@@ -38,14 +38,19 @@ class SchoolsRepository
         do {
             $html = $this->env->getCurrentScreen();
 
-            $totalPages = $this->getTotalPages($html); die($totalPages);
+            $totalPages = $this->getTotalPages($html);
             $currentPage = $this->getCurrentPage($html);
 
-            $expression = '<span class="screen_color_PNN">[\s\d]<\/span><span class="screen_color_PNN">\d{2}\.\d{3}<\/span><span class="screen_color_PNN">  <\/span><span class="screen_color_PNN">.<\/span><span class="screen_color_PNN">.*<\/span>';
-            preg_match_all($expression, $html, $data);
+            $expression = '/<span class="screen_color_PNN">([\s\d])<\/span><span class="screen_color_PNN">(\d{2}\.\d{3})<\/span><span class="screen_color_PNN">  <\/span><span class="screen_color_PNN">(.)<\/span><span class="screen_color_PNN">(.*)<\/span><span class="screen_color_PNN">  <\/span>/';
+            preg_match_all($expression, $html, $data, PREG_SET_ORDER);
 
             foreach ($data as $item) {
-                $schools->add(new School($item[1] . $item[2], $item[3] . $item[4]));
+                $schools->add(
+                    new School(
+                        trim($item[1]) . str_replace('.', '', $item[2]),
+                        $item[3] . $item[4]
+                    )
+                );
             }
 
             if ($currentPage < $totalPages) {
@@ -78,7 +83,7 @@ class SchoolsRepository
      */
     private function getCurrentPage(string $html): int
     {
-        return (int) $this->getPagesString($html)[1];
+        return (int) $this->getPagesString($html)[0][1];
     }
 
     /**
@@ -87,20 +92,20 @@ class SchoolsRepository
      */
     private function getTotalPages(string $html): int
     {
-        return (int) $this->getPagesString($html)[2];
+        return (int) $this->getPagesString($html)[0][2];
     }
 
     private function getPagesString(string $html): array
     {
         $expression = '/<span class="screen_color_PNN"> PAG\.<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PNN">D<\/span><span class="screen_color_PNN">E<\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span>/';
-        preg_match_all($expression, $html, $data);
+        preg_match_all($expression, $html, $data, PREG_SET_ORDER);
         return $data;
     }
 
     /**
      * @param int $pageNumber
      */
-    private function goToPageNumber(integer $pageNumber)
+    private function goToPageNumber(int $pageNumber)
     {
         $this->env->post('controller.jsp', [
             'IF_1726' => $pageNumber,
