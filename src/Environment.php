@@ -28,6 +28,11 @@ class Environment
     private $http;
 
     /**
+     * @var Response
+     */
+    private $currentScreen;
+
+    /**
      * Application constructor.
      * @param string $user
      * @param string $password
@@ -67,9 +72,10 @@ class Environment
      */
     public function get(string $url): Response
     {
-        return $this->http->request(
+        $this->currentScreen = $this->http->request(
             'GET', $url
         );
+        return $this->currentScreen;
     }
 
     /**
@@ -79,11 +85,12 @@ class Environment
      */
     public function post(string $url, array $data): Response
     {
-        return $this->http->request(
+        $this->currentScreen = $this->http->request(
             'POST', $url, [
                 'form_params' => $data
             ]
         );
+        return $this->currentScreen;
     }
 
     /**
@@ -139,7 +146,7 @@ class Environment
      */
     public function getCurrentScreen()
     {
-        return $this->get('controller.jsp?action=showscreen')->getBody()->getContents();
+        return $this->currentScreen->getBody()->getContents();
     }
 
 }
