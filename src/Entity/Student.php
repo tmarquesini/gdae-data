@@ -9,17 +9,17 @@ namespace GdaeData\Entity;
 class Student
 {
     /**
-     * @var
+     * @var string
      */
     private $number;
 
     /**
-     * @var
+     * @var string
      */
     private $name;
 
     /**
-     * @var
+     * @var string
      */
     private $ra;
 
