@@ -13,18 +13,12 @@ use GdaeData\Environment;
 class SchoolsRepository extends BaseRepository
 {
     /**
-     * @var Environment
-     */
-    private $env;
-
-    /**
      * SchoolsRepository constructor.
      * @param Environment $env
      */
     public function __construct(Environment $env)
     {
         parent::__construct($env);
-        $this->env = $env;
     }
 
     /**

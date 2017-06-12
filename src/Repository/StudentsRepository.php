@@ -8,7 +8,6 @@
 
 namespace GdaeData\Repository;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use GdaeData\Entity\Grade;
 use GdaeData\Entity\Student;
@@ -18,7 +17,7 @@ use GdaeData\Environment;
  * Class StudentsRepository
  * @package GdaeData\Repository
  */
-class StudentsRepository
+class StudentsRepository extends BaseRepository
 {
     /**
      * @var Environment
@@ -31,7 +30,7 @@ class StudentsRepository
      */
     public function __construct(Environment $env)
     {
-        $this->env = $env;
+        parent::__construct($env);
     }
 
     /**

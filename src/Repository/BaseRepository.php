@@ -13,7 +13,7 @@ class BaseRepository
     /**
      * @var Environment
      */
-    private $env;
+    protected $env;
 
     /**
      * BaseRepository constructor.

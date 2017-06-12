@@ -14,18 +14,12 @@ use GdaeData\Environment;
 class GradesRepository extends BaseRepository
 {
     /**
-     * @var Environment
-     */
-    private $env;
-
-    /**
      * GradesRepository constructor.
      * @param Environment $env
      */
     public function __construct(Environment $env)
     {
         parent::__construct($env);
-        $this->env = $env;
     }
 
     /**
