@@ -34,7 +34,34 @@ class StudentsRepository extends BaseRepository
      */
     public function getAll(Grade $grade): ArrayCollection
     {
+        $this->goToGradesBySchool($grade);
+
         $students = new ArrayCollection();
+
+        do {
+            $html = $this->env->getCurrentScreen();
+
+            $totalPages = $this->getTotalPages($html);
+            $currentPage = $this->getCurrentPage($html);
+
+            $expression = '//';
+            preg_match_all($expression, $html, $data, PREG_SET_ORDER);
+
+            foreach ($data as $item) {
+                $students->add(
+                    new Student(
+                        'number',
+                        'name',
+                        'ra'
+                    )
+                );
+            }
+
+            if ($currentPage < $totalPages) {
+                $this->goToPageNumber($currentPage + 1);
+            }
+        } while ($currentPage < $totalPages);
+
         return $students;
     }
 

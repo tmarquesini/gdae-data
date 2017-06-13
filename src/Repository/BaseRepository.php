@@ -30,7 +30,7 @@ class BaseRepository
      */
     protected function getCurrentPage(string $html): int
     {
-        return (int) $this->getPagesString($html)[0][1];
+        return (int) $this->getPagesString($html)[1];
     }
 
     /**
@@ -39,7 +39,7 @@ class BaseRepository
      */
     protected function getTotalPages(string $html): int
     {
-        return (int) $this->getPagesString($html)[0][2];
+        return (int) $this->getPagesString($html)[2];
     }
 
     /**
@@ -48,9 +48,9 @@ class BaseRepository
      */
     private function getPagesString(string $html): array
     {
-        $expression = '/<span class="screen_color_PNN"> PAG\.<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PNN">D<\/span><span class="screen_color_PNN">E<\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span>/';
+        $expression = '/<span class="screen_color_PHN">(\d*)<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PNN">D<\/span><span class="screen_color_PNN">E<\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span>/';
         preg_match_all($expression, $html, $data, PREG_SET_ORDER);
-        return $data;
+        return array_key_exists(0, $data) ? $data[0] : [1 => 0, 2 => 0];
     }
 
     /**
