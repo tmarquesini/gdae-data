@@ -46,7 +46,7 @@ class GradesRepository extends BaseRepository
                 $line = preg_replace($pattern, '', $item[0]);
                 $grades->add(
                     new Grade(
-                        substr($line, 69, 11),
+                        trim(str_replace('.', '', substr($line, 69, 11))),
                         trim(substr($line, 8, 2)),
                         trim(substr($line, 3, 2)),
                         trim(substr($line, 19, 2)),

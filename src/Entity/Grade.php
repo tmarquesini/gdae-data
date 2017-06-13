@@ -76,7 +76,7 @@ class Grade
             case 14: return 'ENSINO FUNDAMENTAL DE 9 ANOS'; break;
             case 26: return 'ATIVIDADE COMPLEMENTAR'; break;
             case 32: return 'ATENDIMENTO EDUCACIONAL ESPECIALIZADO'; break;
-            case 35: return 'EDUCACAO PROFISSIONAL - 10136'; break;
+            case 35: return 'EDUCACAO PROFISSIONAL'; break;
             default: return "TYPE-{$this->type}";
         }
     }
@@ -115,17 +115,16 @@ class Grade
     /**
      * @return string
      */
-    public function getDescription(): string
-    {
-        return "{$this->getType()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriod()}, {$this->getActiveStudents()} alunos";
-    }
-
-    /**
-     * @return string
-     */
     public function getActiveStudents()
     {
         return $this->activeStudents;
     }
 
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return "{$this->getType()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriod()}, {$this->getActiveStudents()} alunos";
+    }
 }
