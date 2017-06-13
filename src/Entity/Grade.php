@@ -125,6 +125,6 @@ class Grade
      */
     public function getDescription(): string
     {
-        return "{$this->getType()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriod()}, {$this->getActiveStudents()} alunos";
+        return "{$this->getType()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriod()}";
     }
 }
