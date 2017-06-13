@@ -70,6 +70,14 @@ class Grade
      */
     public function getType(): string
     {
+        return $this->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeDescription(): string
+    {
         switch ($this->type) {
             case 3: return 'EJA ENSINO FUNDAMENTAL - ANOS INICIAIS'; break;
             case 6: return 'EDUCACAO INFANTIL'; break;
@@ -85,6 +93,14 @@ class Grade
      * @return string
      */
     public function getPeriod(): string
+    {
+        return $this->period;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPeriodDescription(): string
     {
         switch ($this->period) {
             case 1: return 'MANHA'; break;
@@ -123,8 +139,8 @@ class Grade
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getFullDescription(): string
     {
-        return "{$this->getType()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriod()}";
+        return "{$this->getTypeDescription()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriodDescription()}";
     }
 }
