@@ -22,6 +22,7 @@ class SchoolsRepository extends BaseRepository
     }
 
     /**
+     * TODO Alterar expressões regulares para busca por linhas
      * @return ArrayCollection
      */
     public function getAll(): ArrayCollection
@@ -36,14 +37,14 @@ class SchoolsRepository extends BaseRepository
             $totalPages = $this->getTotalPages($html);
             $currentPage = $this->getCurrentPage($html);
 
-            $expression = '/<span class="screen_color_PNN">([\s\d])<\/span><span class="screen_color_PNN">(\d{2}\.\d{3})<\/span><span class="screen_color_PNN">  <\/span><span class="screen_color_PNN">(.)<\/span><span class="screen_color_PNN">(.*)<\/span><span class="screen_color_PNN">  <\/span>/';
-            preg_match_all($expression, $html, $data, PREG_SET_ORDER);
+            $pattern = '/<span class="screen_color_PNN">([\s\d])<\/span><span class="screen_color_PNN">(\d{2}\.\d{3})<\/span><span class="screen_color_PNN">  <\/span><span class="screen_color_PNN">(.)<\/span><span class="screen_color_PNN">(.*)<\/span><span class="screen_color_PNN">  <\/span>/';
+            preg_match_all($pattern, $html, $data, PREG_SET_ORDER);
 
             foreach ($data as $item) {
                 $schools->add(
                     new School(
                         trim($item[1]) . str_replace('.', '', $item[2]),
-                        $item[3] . $item[4]
+                        trim($item[3] . $item[4])
                     )
                 );
             }

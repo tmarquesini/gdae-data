@@ -23,10 +23,9 @@ class Application
     private $appVersion = '0.1';
 
     /**
-     * TODO: Change access to private
      * @var Environment
      */
-    public $environment;
+    private $environment;
 
     /**
      * @var SchoolsRepository

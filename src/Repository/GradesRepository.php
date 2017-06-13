@@ -38,15 +38,20 @@ class GradesRepository extends BaseRepository
             $totalPages = $this->getTotalPages($html);
             $currentPage = $this->getCurrentPage($html);
 
-            $expression = '/<span class="screen_color_PNN">(\d) (.) <\/span>.*<span class="screen_color_PNN">(\d)<\/span><span class="screen_color_PNN">(\d{2}\.\d{3}\.\d{3})<\/span>/';
-            preg_match_all($expression, $html, $data, PREG_SET_ORDER);
+            $pattern = '/\n<span class="screen_color_PNN">.*\d{2}\.\d{3}\.\d{3}<\/span>/';
+            preg_match_all($pattern, $html, $data, PREG_SET_ORDER);
 
             foreach ($data as $item) {
+                $pattern = '/<[^>]*>/';
+                $line = preg_replace($pattern, '', $item[0]);
                 $grades->add(
                     new Grade(
-                        str_replace('.', '', $item[3] . $item[4]),
-                        $item[1],
-                        $item[2]
+                        trim(str_replace('.', '', substr($line, 69, 11))),
+                        trim(substr($line, 8, 2)),
+                        trim(substr($line, 3, 2)),
+                        trim(substr($line, 19, 2)),
+                        trim(substr($line, 22, 2)),
+                        trim(substr($line, 60, 2))
                     )
                 );
             }
