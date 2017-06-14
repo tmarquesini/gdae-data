@@ -22,7 +22,6 @@ class SchoolsRepository extends BaseRepository
     }
 
     /**
-     * TODO Alterar expressões regulares para busca por linhas
      * @return ArrayCollection
      */
     public function getAll(): ArrayCollection
@@ -32,27 +31,21 @@ class SchoolsRepository extends BaseRepository
         $schools = new ArrayCollection();
 
         do {
-            $html = $this->env->getCurrentScreen();
+            $pages = $this->getPageNavigation(23);
+            $lines = $this->getSanitizedLines(11, 21);
 
-            $totalPages = $this->getTotalPages($html);
-            $currentPage = $this->getCurrentPage($html);
-
-            $pattern = '/<span class="screen_color_PNN">([\s\d])<\/span><span class="screen_color_PNN">(\d{2}\.\d{3})<\/span><span class="screen_color_PNN">  <\/span><span class="screen_color_PNN">(.)<\/span><span class="screen_color_PNN">(.*)<\/span><span class="screen_color_PNN">  <\/span>/';
-            preg_match_all($pattern, $html, $data, PREG_SET_ORDER);
-
-            foreach ($data as $item) {
+            foreach ($lines as $line) {
                 $schools->add(
                     new School(
-                        trim($item[1]) . str_replace('.', '', $item[2]),
-                        trim($item[3] . $item[4])
+                        trim(str_replace('.', '', substr($line, 3, 7))),
+                        trim(substr($line, 12, 45))
                     )
                 );
             }
 
-            if ($currentPage < $totalPages) {
-                $this->goToPageNumber($currentPage + 1);
-            }
-        } while ($currentPage < $totalPages);
+            $this->goToNextPage();
+
+        } while ($pages['current'] < $pages['total']);
 
         return $schools;
     }
@@ -65,7 +58,7 @@ class SchoolsRepository extends BaseRepository
     private function goToSchoolsByCityAndNetwork(string $city, string $network, string $status = '1')
     {
         $this->env->goToOption('2.5.5');
-        $this->env->post('controller.jsp', [
+        $this->env->post([
             'IF_266' => $city,
             'IF_586' => $network,
             'IF_1146' => $status,

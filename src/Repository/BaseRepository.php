@@ -25,42 +25,58 @@ class BaseRepository
     }
 
     /**
-     * @param string $html
-     * @return int
-     */
-    protected function getCurrentPage(string $html): int
-    {
-        return (int) $this->getPagesString($html)[1];
-    }
-
-    /**
-     * @param string $html
-     * @return int
-     */
-    protected function getTotalPages(string $html): int
-    {
-        return (int) $this->getPagesString($html)[2];
-    }
-
-    /**
-     * @param string $html
+     * @param int $lineNumber
      * @return array
      */
-    private function getPagesString(string $html): array
+    protected function getPageNavigation(int $lineNumber): array
     {
-        $expression = '/<span class="screen_color_PHN">(\d*)<\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PNN">D<\/span><span class="screen_color_PNN">E<\/span><span class="screen_color_PNN"> <\/span><span class="screen_color_PHN"> <\/span><span class="screen_color_PHN">(\d*)<\/span>/';
-        preg_match_all($expression, $html, $data, PREG_SET_ORDER);
-        return array_key_exists(0, $data) ? $data[0] : [1 => 0, 2 => 0];
+        $html = $this->env->getCurrentScreen();
+
+        $pattern = '/((\r?\n)|(\r\n?))/';
+        $lines = preg_split($pattern, $html);
+
+        $pattern = '/<[^>]*>/';
+        $sanitizedPagesLine = preg_replace($pattern, '', $lines[$lineNumber]);
+
+        $pagesNavigation= [
+            'current' => (int) trim(substr($sanitizedPagesLine, 6, 2)),
+            'total' => (int) trim(substr($sanitizedPagesLine, 12, 2))
+        ];
+
+        return $pagesNavigation;
     }
 
     /**
-     * @param int $pageNumber
+     *
      */
-    protected function goToPageNumber(int $pageNumber)
+    protected function goToNextPage()
     {
-        $this->env->post('controller.jsp', [
-            'IF_1726' => $pageNumber,
+        $this->env->post([
             'action' => 'screen'
         ]);
+    }
+
+    /**
+     * @param int $startLineNumber
+     * @param int $endLineNumber
+     * @return array
+     */
+    protected function getSanitizedLines(int $startLineNumber, int $endLineNumber): array
+    {
+        $html = $this->env->getCurrentScreen();
+
+        $pattern = '/((\r?\n)|(\r\n?))/';
+        $lines = preg_split($pattern, $html);
+
+        $sanitizedScreen = [];
+        $pattern = '/<[^>]*>/';
+        for ($i = $startLineNumber; $i < $endLineNumber; $i++) {
+            $line = preg_replace($pattern, '', $lines[$i]);
+            if (trim($line) != '') {
+                $sanitizedScreen[] = $line;
+            }
+        }
+
+        return $sanitizedScreen;
     }
 }

@@ -33,33 +33,25 @@ class GradesRepository extends BaseRepository
         $grades = new ArrayCollection();
 
         do {
-            $html = $this->env->getCurrentScreen();
+            $pages = $this->getPageNavigation(23);
+            $lines = $this->getSanitizedLines(10, 20);
 
-            $totalPages = $this->getTotalPages($html);
-            $currentPage = $this->getCurrentPage($html);
-
-            $pattern = '/\n<span class="screen_color_PNN">.*\d{2}\.\d{3}\.\d{3}<\/span>/';
-            preg_match_all($pattern, $html, $data, PREG_SET_ORDER);
-
-            foreach ($data as $item) {
-                $pattern = '/<[^>]*>/';
-                $line = preg_replace($pattern, '', $item[0]);
+            foreach ($lines as $line) {
                 $grades->add(
                     new Grade(
-                        trim(str_replace('.', '', substr($line, 69, 11))),
-                        trim(substr($line, 8, 2)),
-                        trim(substr($line, 3, 2)),
-                        trim(substr($line, 19, 2)),
-                        trim(substr($line, 22, 2)),
-                        trim(substr($line, 60, 2))
+                        trim(str_replace('.', '', substr($line, 68, 11))),
+                        trim(substr($line, 7, 2)),
+                        trim(substr($line, 2, 2)),
+                        trim(substr($line, 18, 2)),
+                        trim(substr($line, 21, 2)),
+                        trim(substr($line, 59, 2))
                     )
                 );
             }
 
-            if ($currentPage < $totalPages) {
-                $this->goToPageNumber($currentPage + 1);
-            }
-        } while ($currentPage < $totalPages);
+            $this->goToNextPage();
+
+        } while ($pages['current'] < $pages['total']);
 
         return $grades;
     }
@@ -70,7 +62,7 @@ class GradesRepository extends BaseRepository
     private function goToGradesBySchool(School $school)
     {
         $this->env->goToOption('2.2.1');
-        $this->env->post('controller.jsp', [
+        $this->env->post([
             'IF_363' => $school->getCode(),
             'action' => 'screen'
         ]);

@@ -28,11 +28,6 @@ class Environment
     private $http;
 
     /**
-     * @var Response
-     */
-    private $currentScreen;
-
-    /**
      * Application constructor.
      * @param string $user
      * @param string $password
@@ -70,27 +65,25 @@ class Environment
      * @param string $url
      * @return Response
      */
-    public function get(string $url): Response
+    public function get(string $url = 'controller.jsp?action=showscreen'): Response
     {
-        $this->currentScreen = $this->http->request(
+        return $this->http->request(
             'GET', $url
         );
-        return $this->currentScreen;
     }
 
     /**
-     * @param string $url
      * @param array $data
+     * @param string $url
      * @return Response
      */
-    public function post(string $url, array $data): Response
+    public function post(array $data, string $url = 'controller.jsp'): Response
     {
-        $this->currentScreen = $this->http->request(
+        return $this->http->request(
             'POST', $url, [
                 'form_params' => $data
             ]
         );
-        return $this->currentScreen;
     }
 
     /**
@@ -103,8 +96,8 @@ class Environment
             'senha' => $this->password,
             'transacao' => 'jcaa'
         ];
-        $this->post('index.jsp', $data);
-        $this->get('controller.jsp?action=showscreen');
+        $this->post($data, 'index.jsp');
+        $this->get();
     }
 
     /**
@@ -124,7 +117,7 @@ class Environment
             'AK_364' => true,
             'action' => 'screen'
         ];
-        $this->post('controller.jsp', $data);
+        $this->post($data);
     }
 
     /**
@@ -138,7 +131,7 @@ class Environment
             'action' => 'entity',
             'entity' => 'MenuPrincipalJCAA'
         ];
-        $this->post('controller.jsp', $data);
+        $this->post($data);
     }
 
     /**
@@ -146,7 +139,7 @@ class Environment
      */
     public function getCurrentScreen()
     {
-        return $this->currentScreen->getBody()->getContents();
+        return $this->get()->getBody()->getContents();
     }
 
 }
