@@ -24,6 +24,7 @@ class StudentsRepository extends BaseRepository
     }
 
     /**
+     * @param School $school
      * @param Grade $grade
      * @return ArrayCollection
      */
