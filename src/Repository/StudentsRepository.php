@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: monitor
- * Date: 08/06/17
- * Time: 09:35
- */
 
 namespace GdaeData\Repository;
 
