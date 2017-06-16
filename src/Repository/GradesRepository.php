@@ -30,6 +30,8 @@ class GradesRepository extends BaseRepository
     {
         $this->goToGradesBySchool($school);
 
+        // TODO Adicionar verificação se foram encontradas classes
+
         $grades = new ArrayCollection();
 
         do {

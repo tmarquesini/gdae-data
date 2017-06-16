@@ -32,6 +32,8 @@ class StudentsRepository extends BaseRepository
     {
         $this->goToStudentsBySchoolAndGrade($school, $grade);
 
+        // TODO Adicionar verificação se foram encontrados alunos
+
         $students = new ArrayCollection();
 
         do {

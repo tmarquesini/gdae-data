@@ -28,6 +28,8 @@ class SchoolsRepository extends BaseRepository
     {
         $this->goToSchoolsByCityAndNetwork('pirassununga', '2');
 
+        // TODO Adicionar verificação se foram encontradas escolas
+
         $schools = new ArrayCollection();
 
         do {
