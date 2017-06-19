@@ -28,9 +28,9 @@ class GradesRepository extends BaseRepository
      */
     public function getAll(School $school): ArrayCollection
     {
-        $this->goToGradesBySchool($school)[0];
+        $this->goToGradesBySchool($school);
 
-        $line = $this->getSanitizedLines(5, 5);
+        $line = $this->getSanitizedLines(5, 5)[0];
         if (strpos(strtoupper($line), strtoupper($school->getName())) === false) {
             return new ArrayCollection();
         }
