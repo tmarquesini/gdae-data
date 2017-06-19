@@ -24,17 +24,20 @@ class SchoolsRepository extends BaseRepository
     /**
      * @return ArrayCollection
      */
-    public function getAll(): ArrayCollection
+    public function getAll(string $city, string $network = '2'): ArrayCollection
     {
-        $this->goToSchoolsByCityAndNetwork('pirassununga', '2');
+        $this->goToSchoolsByCityAndNetwork($city, $network);
 
-        // TODO Adicionar verificação se foram encontradas escolas
+        $line = $this->getSanitizedLines(5, 5)[0];
+        if (strpos(strtoupper($line), strtoupper($city)) === false) {
+            return new ArrayCollection();
+        }
 
         $schools = new ArrayCollection();
 
         do {
             $pages = $this->getPageNavigation(23);
-            $lines = $this->getSanitizedLines(11, 21);
+            $lines = $this->getSanitizedLines(11, 20);
 
             foreach ($lines as $line) {
                 $schools->add(

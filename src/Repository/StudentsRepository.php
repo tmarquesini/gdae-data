@@ -32,13 +32,20 @@ class StudentsRepository extends BaseRepository
     {
         $this->goToStudentsBySchoolAndGrade($school, $grade);
 
-        // TODO Adicionar verificação se foram encontrados alunos
+        $line = $this->getSanitizedLines(5, 5)[0];
+        $gradeFormattedCode = implode('.', str_split($grade->getCode(), 3));
+        if (strpos($line, $gradeFormattedCode) === false) {
+            die("não achou\n{$line}\n{$gradeFormattedCode}");
+            return new ArrayCollection();
+        } else {
+            die('achou');
+        }
 
         $students = new ArrayCollection();
 
         do {
             $pages = $this->getPageNavigation(22);
-            $lines = $this->getSanitizedLines(11, 21);
+            $lines = $this->getSanitizedLines(11, 20);
 
             foreach ($lines as $line) {
                 $students->add(

@@ -28,15 +28,18 @@ class GradesRepository extends BaseRepository
      */
     public function getAll(School $school): ArrayCollection
     {
-        $this->goToGradesBySchool($school);
+        $this->goToGradesBySchool($school)[0];
 
-        // TODO Adicionar verificação se foram encontradas classes
+        $line = $this->getSanitizedLines(5, 5);
+        if (strpos(strtoupper($line), strtoupper($school->getName())) === false) {
+            return new ArrayCollection();
+        }
 
         $grades = new ArrayCollection();
 
         do {
             $pages = $this->getPageNavigation(23);
-            $lines = $this->getSanitizedLines(10, 20);
+            $lines = $this->getSanitizedLines(10, 19);
 
             foreach ($lines as $line) {
                 $grades->add(

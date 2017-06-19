@@ -70,7 +70,7 @@ class BaseRepository
 
         $sanitizedScreen = [];
         $pattern = '/<[^>]*>/';
-        for ($i = $startLineNumber; $i < $endLineNumber; $i++) {
+        for ($i = $startLineNumber; $i <= $endLineNumber; $i++) {
             $line = preg_replace($pattern, '', $lines[$i]);
             if (trim($line) != '') {
                 $sanitizedScreen[] = $line;
