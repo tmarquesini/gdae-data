@@ -36,8 +36,6 @@ class StudentsRepository extends BaseRepository
         $gradeFormattedCode = implode('.', str_split($grade->getCode(), 3));
         if (strpos($line, $gradeFormattedCode) === false) {
             return new ArrayCollection();
-        } else {
-            die('achou');
         }
 
         $students = new ArrayCollection();
