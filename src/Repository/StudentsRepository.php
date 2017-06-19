@@ -35,7 +35,6 @@ class StudentsRepository extends BaseRepository
         $line = $this->getSanitizedLines(5, 5)[0];
         $gradeFormattedCode = implode('.', str_split($grade->getCode(), 3));
         if (strpos($line, $gradeFormattedCode) === false) {
-            die("não achou\n{$line}\n{$gradeFormattedCode}");
             return new ArrayCollection();
         } else {
             die('achou');
