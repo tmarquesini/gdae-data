@@ -170,16 +170,16 @@ class Grade
     /**
      * @return string
      */
-    public function getActiveStudents(): string
+    public function getSemester(): string
     {
-        return $this->activeStudents;
+        return $this->semester;
     }
 
     /**
      * @return string
      */
-    public function getSemester(): string
+    public function getActiveStudents(): string
     {
-        return $this->semester;
+        return $this->activeStudents;
     }
 }
