@@ -9,12 +9,12 @@ namespace GdaeData\Entity;
 class School
 {
     /**
-     * @var
+     * @var string
      */
     private $code;
 
     /**
-     * @var
+     * @var string
      */
     private $name;
 

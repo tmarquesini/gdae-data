@@ -34,7 +34,7 @@ class Grade
     private $class;
 
     /**
-     * @var
+     * @var string
      */
     private $semester;
 
@@ -50,6 +50,7 @@ class Grade
      * @param string $period
      * @param string $series
      * @param string $class
+     * @param string $semester
      * @param string $activeStudents
      */
     public function __construct(string $code, string $type, string $period, string $series, string $class, string $semester, string $activeStudents)
@@ -169,24 +170,16 @@ class Grade
     /**
      * @return string
      */
-    public function getActiveStudents()
+    public function getActiveStudents(): string
     {
         return $this->activeStudents;
     }
 
     /**
-     * @return mixed
-     */
-    public function getSemester()
-    {
-        return $this->semester;
-    }
-
-    /**
      * @return string
      */
-    public function getFullDescription(): string
+    public function getSemester(): string
     {
-        return "{$this->getTypeDescription()}, {$this->getSeries()} {$this->getClass()}, {$this->getPeriodDescription()}";
+        return $this->semester;
     }
 }

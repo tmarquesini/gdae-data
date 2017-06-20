@@ -22,12 +22,15 @@ class SchoolsRepository extends BaseRepository
     }
 
     /**
+     * @param string $city
+     * @param string $network
      * @return ArrayCollection
      */
     public function getAll(string $city, string $network = '2'): ArrayCollection
     {
         $this->goToSchoolsByCityAndNetwork($city, $network);
 
+        // Verifica se não há resultados para os dados fornecidos e retorna coleção vazia
         $line = $this->getSanitizedLines(5, 5)[0];
         if (strpos($line, strtoupper($city)) === false) {
             return new ArrayCollection();

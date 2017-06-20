@@ -32,6 +32,7 @@ class StudentsRepository extends BaseRepository
     {
         $this->goToStudentsBySchoolAndGrade($school, $grade);
 
+        // Verifica se não há resultados para os dados fornecidos e retorna coleção vazia
         $line = $this->getSanitizedLines(5, 5)[0];
         if (strpos($line, $grade->getFormattedCode()) === false) {
             return new ArrayCollection();
