@@ -33,8 +33,7 @@ class StudentsRepository extends BaseRepository
         $this->goToStudentsBySchoolAndGrade($school, $grade);
 
         $line = $this->getSanitizedLines(5, 5)[0];
-        $gradeFormattedCode = implode('.', str_split($grade->getCode(), 3));
-        if (strpos($line, $gradeFormattedCode) === false) {
+        if (strpos($line, $grade->getFormattedCode()) === false) {
             return new ArrayCollection();
         }
 

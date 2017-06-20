@@ -40,6 +40,14 @@ class School
     /**
      * @return string
      */
+    public function getFormattedCode(): string
+    {
+        return number_format($this->getCode(), 0, '', '.');
+    }
+
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;

@@ -29,7 +29,7 @@ class SchoolsRepository extends BaseRepository
         $this->goToSchoolsByCityAndNetwork($city, $network);
 
         $line = $this->getSanitizedLines(5, 5)[0];
-        if (strpos(strtoupper($line), strtoupper($city)) === false) {
+        if (strpos($line, strtoupper($city)) === false) {
             return new ArrayCollection();
         }
 

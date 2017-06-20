@@ -31,7 +31,7 @@ class GradesRepository extends BaseRepository
         $this->goToGradesBySchool($school);
 
         $line = $this->getSanitizedLines(5, 5)[0];
-        if (strpos(strtoupper($line), strtoupper($school->getName())) === false) {
+        if (strpos($line, $school->getFormattedCode()) === false) {
             return new ArrayCollection();
         }
 
@@ -44,11 +44,12 @@ class GradesRepository extends BaseRepository
             foreach ($lines as $line) {
                 $grades->add(
                     new Grade(
-                        trim(str_replace('.', '', substr($line, 68, 11))),
+                        trim(str_replace('.', '', substr($line, 68, 12))),
                         trim(substr($line, 7, 2)),
                         trim(substr($line, 2, 2)),
                         trim(substr($line, 18, 2)),
                         trim(substr($line, 21, 2)),
+                        trim(substr($line, 64, 1)),
                         trim(substr($line, 59, 2))
                     )
                 );
