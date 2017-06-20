@@ -97,7 +97,13 @@ class Environment
             'transacao' => 'jcaa'
         ];
         $this->post($data, 'index.jsp');
-        $this->get();
+
+        $html = $this->get()->getBody()->getContents();
+
+        $pattern = '/<p id="labelErro">ERRO:<\/p>\s*<p id="outErro">(.*)<\/p>/';
+        if (preg_match($pattern, $html, $error)) {
+            throw new \Exception($error[1]);
+        }
     }
 
     /**
