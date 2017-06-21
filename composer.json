@@ -1,0 +1,21 @@
+{
+    "name": "labtipirassununga/gdae-data",
+    "description": "Biblioteca de integração com o Sistema GDAE para obteção de dados de escolas públicas municipais de Pirassununga.",
+    "type": "library",
+    "require": {
+        "doctrine/collections": "^1.4",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thiago Marquesini",
+            "email": "contato@marquesini.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GdaeData\\": "src/"
+        }
+    }
+}
