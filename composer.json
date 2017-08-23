@@ -1,6 +1,6 @@
 {
     "name": "tmarquesini/gdae-data",
-    "description": "Biblioteca de integração com o Sistema GDAE para obteção de dados de escolas públicas municipais de Pirassununga.",
+    "description": "Biblioteca para obter dados de escolas, turmas e alunos no sistema GDAE, da PRODESP. ",
     "type": "library",
     "require": {
         "php": "^7.0",
