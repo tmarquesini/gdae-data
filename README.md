@@ -21,7 +21,7 @@ Biblioteca para obter dados de escolas, turmas e alunos no sistema GDAE, da PROD
 Na raiz de seu projeto PHP, execute:
 
 ```sh
-$ composer require tmarquesini/gdae-data
+$ composer require tmarquesini/gdae-data:dev-master
 ```
 
 ### Utilização
