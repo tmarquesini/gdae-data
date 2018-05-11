@@ -1,3 +1,11 @@
+# ATENÇÃO, PROJETO DESCONTINUADO!
+
+Com a evolução dos sistemas oferecidos pela PRODESP, o Cadastro de Alunso do GDAE deu lugar ao SED (Secretaria Escolar Digital), novo sistema para trabalhar informações educacionais. Assim, esta biblioteca não é mais funcional.
+
+Será mantida online apenas para fins de consulta e estudos.
+
+Uma nova biblioteca, para leitura de dados do SED está disponível em https://github.com/tmarquesini/sed-data.
+
 # GDAE Data
 
 Biblioteca para obter dados de escolas, turmas e alunos no sistema GDAE, da PRODESP.
